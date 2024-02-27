@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_series/homePage.dart';
 import 'package:firebase_series/uiHelper.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,29 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  signUp(String email, String password) async {
+    if (email == "" && password == "") {
+      uiHelpler.customAlertBox(context, "Please Enter correct fields");
+    } else {
+      UserCredential? userCredential;
+      try {
+        userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .then(
+              (value) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              ),
+            );
+      } on FirebaseAuthException catch (ex) {
+        uiHelpler.customAlertBox(context, ex.code.toString());
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,17 +46,40 @@ class _SignUpPageState extends State<SignUpPage> {
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 25,vertical: 15,),
-        child: Column(  
+        padding: EdgeInsets.symmetric(
+          horizontal: 25,
+          vertical: 15,
+        ),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [  
-            uiHelpler.CustomTExtFIels(emailController, "Email", Icons.mail, false,),
-            SizedBox(height: 20,),
-            uiHelpler.CustomTExtFIels(passwordController, "Password", Icons.password, true,),
+          children: [
+            uiHelpler.CustomTExtFIels(
+              emailController,
+              "Email",
+              Icons.mail,
+              false,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            uiHelpler.CustomTExtFIels(
+              passwordController,
+              "Password",
+              Icons.password,
+              true,
+            ),
             SizedBox(
               height: 30,
             ),
-            uiHelpler.customButtons(() { }, "SignUp",)
+            uiHelpler.customButtons(
+              () {
+                signUp(
+                  emailController.text.toString(),
+                  passwordController.text.toString(),
+                );
+              },
+              "SignUp",
+            )
           ],
         ),
       ),

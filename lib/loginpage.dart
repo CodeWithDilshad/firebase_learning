@@ -1,5 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_series/homePage.dart';
 import 'package:firebase_series/signUp.dart';
 import 'package:firebase_series/uiHelper.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,32 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  login(String email, String password) async {
+    if (email == "" && password == "") {
+      uiHelpler.customAlertBox(context, "Enter correct credentials");
+    } else {
+      try {
+        UserCredential? userCredential;
+        userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password)
+        .then(
+          (value) => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          ),
+        );
+      } on FirebaseAuthException catch (ex) {
+        uiHelpler.customAlertBox(
+          context,
+          ex.code.toString(),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +78,12 @@ class _LoginPageState extends State<LoginPage> {
               height: 30,
             ),
             uiHelpler.customButtons(
-              () {},
+              () {
+                login(
+                  emailController.text.toString(),
+                  passwordController.text.toString(),
+                );
+              },
               "Login",
             ),
             SizedBox(
