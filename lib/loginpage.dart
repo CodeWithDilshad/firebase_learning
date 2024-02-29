@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_series/forgotPassword.dart';
 import 'package:firebase_series/homePage.dart';
 import 'package:firebase_series/signUp.dart';
 import 'package:firebase_series/uiHelper.dart';
@@ -19,22 +20,22 @@ class _LoginPageState extends State<LoginPage> {
 
   login(String email, String password) async {
     if (email == "" && password == "") {
-      uiHelpler.customAlertBox(context, "Enter correct credentials");
+      return uiHelpler.customAlertBox(context, "Enter correct credentials");
     } else {
       try {
         UserCredential? userCredential;
         userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password)
-        .then(
-          (value) => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ),
-          ),
-        );
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then(
+              (value) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              ),
+            );
       } on FirebaseAuthException catch (ex) {
-        uiHelpler.customAlertBox(
+        return uiHelpler.customAlertBox(
           context,
           ex.code.toString(),
         );
@@ -46,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Firebase Authentication"),
+        title: Text("LoginPage"),
         centerTitle: true,
       ),
       body: Padding(
@@ -111,7 +112,28 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ],
-            )
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            // Forgot password button
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => forgotPassword(),
+                  ),
+                );
+              },
+              child: Text(
+                "Forgot Password",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
           ],
         ),
       ),

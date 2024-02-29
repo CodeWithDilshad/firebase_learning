@@ -18,7 +18,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   signUp(String email, String password) async {
     if (email == "" && password == "") {
-      uiHelpler.customAlertBox(context, "Please Enter correct fields");
+      return uiHelpler.customAlertBox(context, "Please Enter required fields");
     } else {
       UserCredential? userCredential;
       try {
@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             );
       } on FirebaseAuthException catch (ex) {
-        uiHelpler.customAlertBox(context, ex.code.toString());
+        return uiHelpler.customAlertBox(context, ex.code.toString());
       }
     }
   }

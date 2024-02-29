@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.deepPurple, // Use fromSwatch for simplicity
         ),
       ),
-      home:LoginPage(),
+      home: LoginPage(),
     );
   }
 }
