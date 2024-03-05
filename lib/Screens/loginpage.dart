@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_series/forgotPassword.dart';
-import 'package:firebase_series/homePage.dart';
-import 'package:firebase_series/signUp.dart';
-import 'package:firebase_series/uiHelper.dart';
+import 'package:firebase_series/Screens/forgotPassword.dart';
+import 'package:firebase_series/Screens/homePage.dart';
+import 'package:firebase_series/Screens/signUp.dart';
+import 'package:firebase_series/Screens/uiHelper.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {

@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_series/homePage.dart';
-import 'package:firebase_series/loginpage.dart';
+import 'package:firebase_series/Screens/homePage.dart';
+import 'package:firebase_series/Screens/loginpage.dart';
 import 'package:flutter/material.dart';
 
 class CheckUser extends StatelessWidget {

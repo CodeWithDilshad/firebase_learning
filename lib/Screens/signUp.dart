@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_series/homePage.dart';
-import 'package:firebase_series/uiHelper.dart';
+import 'package:firebase_series/Screens/homePage.dart';
+import 'package:firebase_series/Screens/uiHelper.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -24,7 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
       try {
         userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password)
-            .then(
+            .then( 
               (value) => Navigator.push(
                 context,
                 MaterialPageRoute(

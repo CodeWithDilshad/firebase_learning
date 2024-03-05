@@ -3,7 +3,7 @@
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_series/loginpage.dart';
+import 'package:firebase_series/Screens/loginpage.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
